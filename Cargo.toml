@@ -1,5 +1,5 @@
 [package]
-name = "mchj-generator-rs"
+name = "mchj-generator"
 version = "0.1.0"
 authors = ["Clemens Lutz <lutzcle@cml.li>"]
 description = "Rust bindings for Cagri Balkesen's join data generator"
