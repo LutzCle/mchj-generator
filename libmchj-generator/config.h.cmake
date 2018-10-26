@@ -1,0 +1,8 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#cmakedefine HAVE_PTHREAD_ATTR_SETAFFINITY_NP 1
+#cmakedefine CACHE_LINE_SIZE @CACHE_LINE_SIZE@
+#cmakedefine RELATION_PADDING @RELATION_PADDING@
+
+#endif // CONFIG_H
