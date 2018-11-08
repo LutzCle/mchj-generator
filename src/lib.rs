@@ -25,7 +25,7 @@ mod error;
 
 use error::Result;
 
-use std::ops::Drop;
+use std::ops::{Drop, Deref, DerefMut};
 use std::os::raw::{c_int, c_uint};
 use std::ptr::null_mut;
 
@@ -37,7 +37,7 @@ pub fn seed_generator(seed: u32) {
 }
 
 // TODO: support both KEY_8B and KEY_16B
-pub struct Relation<'a>(&'a [bindings::tuple_t]);
+pub struct Relation<'a>(&'a mut [bindings::tuple_t]);
 
 pub enum BuildMode {
     Seq,
@@ -137,5 +137,19 @@ impl<'a> Drop for Relation<'a> {
         };
 
         unsafe { bindings::delete_relation(&mut r as *mut bindings::relation_t) };
+    }
+}
+
+impl<'a> Deref for Relation<'a> {
+    type Target = [bindings::tuple_t];
+
+    fn deref(&self) -> &[bindings::tuple_t] {
+        self.0
+    }
+}
+
+impl<'a> DerefMut for Relation<'a> {
+    fn deref_mut(&mut self) -> &mut [bindings::tuple_t] {
+        &mut self.0
     }
 }
